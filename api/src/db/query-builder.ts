@@ -8,3 +8,5 @@ export const getQueryBuilder = (tableName: string) => (trx?: Transaction): Query
   }
   return queryBuilder;
 };
+
+export const getLastInsertedId = () => knex.raw('SELECT LAST_INSERT_ID();');

@@ -1,5 +1,6 @@
 import knex from '../db';
 import { Model } from 'objection';
+import db from '../db';
 
 export interface IUser {
   first_name: string;
@@ -7,6 +8,8 @@ export interface IUser {
   email: string;
   created: Date;
 }
+
+Model.knex(db);
 
 export class Users extends Model {
 

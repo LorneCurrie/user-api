@@ -1,15 +1,13 @@
 import * as express from 'express';
-import { Request, Response } from 'express';
 import { errorHandler } from '../helpers/error-handler';
+import * as UserHandlers from '../handlers/users'
 
 export const usersRouter = express.Router();
 
 /* GET users listing. */
-usersRouter.get('/', (req: Request, res: Response, next) => res.status(200).json({ message: 'respond with a resource' }))
+usersRouter.get('/', UserHandlers.getAllUsers)
+  .get('/:id', UserHandlers.getUserById)
+  .post('/', UserHandlers.createNewUser)
+  .put('/:id', UserHandlers.updateUser)
+  .delete('/:id', UserHandlers.deleteUser)
   .all('/*', errorHandler);
-
-// .get('/{id}', null)
-//   .post('/', )
-//     .put('/{id}', null)
-//   .patch('/{id}', null)
-//     .delete('/{id}');

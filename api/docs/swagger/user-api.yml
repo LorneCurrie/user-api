@@ -1,0 +1,185 @@
+swagger: "2.0"
+info:
+  title: User API
+  description: API to play with KNEX ORM Objection.js
+  version: 1.0.0
+basePath: /
+schemes:
+  - http
+paths:
+  /health-check:
+    get:
+      summary: Check if the API is healthy
+      tags: [health-check]
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/getHealthCheck'
+        500:
+          description: Something is not right
+  /api/v1/users:
+    get:
+      summary: Return all users
+      tags: [v1, api, users]
+      produces:
+        - apllication/json
+      responses:
+        200:
+          description: Returns all users
+          schema:
+            $ref: '#/definitions/getAllUsers'
+        400:
+          description: Error returning all users
+          schema:
+            $ref: '#/definitions/error'
+
+    post:
+      summary: Create a new User
+      tags: [v1, api, users]
+      produces:
+        - apllication/json
+      parameters:
+        - in: body
+          name: user
+          description: The User to be created
+          schema:
+            $ref: '#/definitions/postPutUserRequest'
+      responses:
+        201:
+          description: User has been created.  Id is provided in the `X-USER_ID` header field
+        400:
+          description: Error returning all users
+          schema:
+            $ref: '#/definitions/error'
+  /api/v1/users/{userId}:
+    get:
+      summary: Look up user by ID
+      tags: [v1, api, users]
+      parameters:
+        - in: path
+          name: userId
+          type: integer
+          required: true
+      produces:
+        - application/json
+      responses:
+        200:
+          description: User details
+          schema:
+            $ref: '#/definitions/user'
+        400:
+          description: Error returning the user
+          schema:
+            $ref: '#/definitions/error'
+        404:
+          description: User not found
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      summary: Update a existing User
+      tags: [v1, api, users]
+      parameters:
+        - in: path
+          name: userId
+          type: integer
+          required: true
+        - in: body
+          name: user
+          description: The User to be created
+          schema:
+            $ref: '#/definitions/postPutUserRequest'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Updated user details
+          schema:
+            $ref: '#/definitions/user'
+        400:
+          description: Error returning the user
+          schema:
+            $ref: '#/definitions/error'
+        404:
+          description: User not found
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      summary: Delete an existing user
+      tags: [v1, api, users]
+      parameters:
+        - in: path
+          name: userId
+          type: integer
+          required: true
+      produces:
+        - application/json
+      responses:
+        204:
+          description: User has been deleted
+        400:
+          description: Error returning the user
+          schema:
+            $ref: '#/definitions/error'
+        404:
+          description: User not found
+          schema:
+            $ref: '#/definitions/error'
+
+
+definitions:
+  getHealthCheck:
+    type: object
+    properties:
+      computer:
+        type: string
+  getAllUsers:
+    type: object
+    properties:
+      users:
+        type: array
+        items:
+          $ref: '#/definitions/user'
+      total:
+        type: integer
+        description: total number of record from the query
+  postPutUserRequest:
+    type: object
+    properties:
+      email:
+        type: string
+        format: email
+      first_name:
+        type: string
+      last_name:
+        type: string
+  user:
+    type: object
+    properties:
+      id:
+        type: number
+      email:
+        type: string
+        format: email
+      first_name:
+        type: string
+      last_name:
+        type: string
+      created:
+        type: string
+        format: 'date-time'
+
+  error:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+      validation:
+        type: string
+
+
+

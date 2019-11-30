@@ -1,10 +1,8 @@
-import { Request, Response, Router } from 'express';
+import * as express from 'express';
 import { errorHandler } from '../helpers/error-handler';
+import {healthCheck} from '../handlers/health-check';
 
-export const healthCheckRoutes = (router: Router) => {
-  router
-    .get('/health-check', (req: Request, res: Response) => {
-      return res.status(200).json({ message: 'Ok' });
-    })
-    .all('/health-check/*', errorHandler);
-};
+export const healthCheckRouter = express.Router();
+
+healthCheckRouter.get('/', healthCheck)
+  .all('/*', errorHandler);
