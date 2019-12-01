@@ -23,7 +23,7 @@ paths:
   /api/v1/users:
     get:
       summary: Return all users
-      tags: [v1, api, users]
+      tags: [v1-users]
       produces:
         - apllication/json
       responses:
@@ -32,13 +32,13 @@ paths:
           schema:
             $ref: '#/definitions/getAllUsers'
         400:
-          description: Error returning all users
+          description: Error returning users or validation error
           schema:
             $ref: '#/definitions/error'
 
     post:
       summary: Create a new User
-      tags: [v1, api, users]
+      tags: [v1-users]
       produces:
         - apllication/json
       parameters:
@@ -57,7 +57,7 @@ paths:
   /api/v1/users/{userId}:
     get:
       summary: Look up user by ID
-      tags: [v1, api, users]
+      tags: [v1-users]
       parameters:
         - in: path
           name: userId
@@ -71,7 +71,7 @@ paths:
           schema:
             $ref: '#/definitions/user'
         400:
-          description: Error returning the user
+          description: Error returning user or validation error
           schema:
             $ref: '#/definitions/error'
         404:
@@ -80,7 +80,7 @@ paths:
             $ref: '#/definitions/error'
     put:
       summary: Update a existing User
-      tags: [v1, api, users]
+      tags: [v1-users]
       parameters:
         - in: path
           name: userId
@@ -108,7 +108,7 @@ paths:
             $ref: '#/definitions/error'
     delete:
       summary: Delete an existing user
-      tags: [v1, api, users]
+      tags: [v1-users]
       parameters:
         - in: path
           name: userId
