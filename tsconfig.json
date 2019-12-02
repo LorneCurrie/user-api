@@ -13,17 +13,19 @@
       "dom"
     ],
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "baseUrl": ".",
     "paths": {
       "*": [
         "typings/*",
         "*"
-      ],
+      ]
     }
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.spec.ts"
   ]
 }

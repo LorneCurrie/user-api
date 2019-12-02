@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { errorHandler } from '../helpers/error-handler';
-import * as UserHandlers from '../handlers/users'
+import * as UserHandlers from '../handlers/users';
 
 export const usersRouter = express.Router();
 

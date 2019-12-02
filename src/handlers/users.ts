@@ -2,7 +2,7 @@ import { Users } from '../models/users';
 import { transaction } from 'objection';
 import { Response, Request } from 'express';
 import * as Ajv from 'ajv';
-import { createUserProperties, updateUserProperties } from '../validation-schemas/user-requests';
+import { createUserProperties, updateUserProperties } from '../validation/user-requests';
 import { isEmpty, isNil } from 'lodash/fp';
 
 export const getAllUsers = async (req: Request, res: Response) => {
@@ -116,4 +116,4 @@ export const deleteUser = async (req: Request, res: Response) => {
     console.error(`Error occurred while deleting user::${id}`, { error });
     return res.status(400).json({ message: 'Error occurred while deleting the user' });
   }
-}
+};

@@ -1,23 +1,36 @@
 version: '3.3'
 services:
-#    api:
-#      build:  .
-#      container_name: user_api
-#      hostname: api.users.dev
-#      ports:
-#        - 80
-#        - 443
-#      links:
-#        - db
-#      depends_on:
-#        - db
-    db:
-      image: mariadb:10.4.10
-      environment:
-        MYSQL_ROOT_PASSWORD: admin2019
-        MYSQL_USER: devDbUser
-        MYSQL_PASSWORD: thisAmazingPassword
-        MYSQL_DATABASE: api_dev
-      ports:
-        - 3306:3306
+  api:
+    build:  .
+    command: sh -c './wait-for-it.sh db:3306 -t 120 && yarn db-migration && yarn start'
+    env_file: .env
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      LOG_LEVEL: ${LOG_LEVEL}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}_${NODE_ENV}
+      DB_HOST: db
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - app-network
+  db:
+    image: mariadb:10.4.10
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}_${NODE_ENV}
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
