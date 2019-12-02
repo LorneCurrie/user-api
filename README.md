@@ -12,9 +12,10 @@ A simple API setup to play with KNEX and Objection.js
 * Open `.env` and update the ENV Variables.  `DB_HOST` will be `db` when running in Docker compose
 
 * To run the app, run the following command
-
+        
+        yarn build
         docker-compose build
-        docker-compose up <-d>
+        docker-compose up 
     
   Docker compose will run a migration script when starting up.  
 
