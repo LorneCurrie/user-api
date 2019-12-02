@@ -51,7 +51,7 @@ paths:
         201:
           description: User has been created.  Id is provided in the `X-USER_ID` header field
         400:
-          description: Error returning all users
+          description: Error creating a new user
           schema:
             $ref: '#/definitions/error'
   /api/v1/users/{userId}:
@@ -99,7 +99,7 @@ paths:
           schema:
             $ref: '#/definitions/user'
         400:
-          description: Error returning the user
+          description: Error updating the user
           schema:
             $ref: '#/definitions/error'
         404:
@@ -120,7 +120,7 @@ paths:
         204:
           description: User has been deleted
         400:
-          description: Error returning the user
+          description: Error deleting the user
           schema:
             $ref: '#/definitions/error'
         404:
